@@ -28,7 +28,6 @@ namespace CMS
             bundles.Add(new StyleBundle("~/Content/styles").Include(
                       //"~/Content/bootstrap.css",
                       "~/Content/font-awesome.min.css",
-                      "~/Content/style.css",
                       "~/Content/site.css"));
         }
     }
