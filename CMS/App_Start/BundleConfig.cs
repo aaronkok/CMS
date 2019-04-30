@@ -26,7 +26,7 @@ namespace CMS
                       "~/Scripts/active.js"));
 
             bundles.Add(new StyleBundle("~/Content/styles").Include(
-                      "~/Content/bootstrap.css",
+                      //"~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
                       "~/Content/style.css",
                       "~/Content/site.css"));
