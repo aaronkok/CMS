@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Maersk Line CMS</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- /Preloader -->
+    <!-- Header Area Start -->
+    <header class="header-area">
+        <!-- Top Header Area Start -->
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="top-header-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="top-header-content">
+                                <a href="#"><i class="fa fa-phone" aria-hidden="true"></i> <span>Call Us: 001-1234-88888</span></a>
+                                <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> <span>Email: info@@MaerskLine.com</span></a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="top-header-content">
+                                <!-- Login -->
+                                <a href="@Url.Action("Login","Account")"><i class="fa fa-lock" aria-hidden="true"></i> <span>Login</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- Top Header Area End -->
+        <!-- Main Header Start -->
+        <div class="main-header-area">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Classy Menu -->
+                    <nav class="classy-navbar justify-content-between" id="hamiNav">
+                        <!-- Logo -->
+                        <a class="nav-brand" href="@Url.Action("Index","Home")"><h5 style="color:white;">Maersk Line</h5></a>
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <!-- Menu -->
+                        <div class="classy-menu">
+                            <!-- Menu Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul id="nav">
+                                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li><a href="@Url.Action("Management","Shipping")">Management</a></li>
+                                    }
+                                    @if (User.IsInRole("Customer"))
+                                    {
+                                        <li><a href="@Url.Action("Create","Shipping")">New Shipping</a></li>
+                                        <li>
+                                            <a href="#">Shipments</a>
+                                            <ul class="dropdown">
+                                                <li>
+                                                    <a href="#">My Shippings</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="@Url.Action("MyShippings", "Shipping")">Shipping Status</a></li>
+                                                        <li><a href="@Url.Action("MyShippings", "Shipping")">Shipping History</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    }
+                                </ul>
+                                <!-- Live Chat -->
+                                <div class="live-chat-btn ml-5 mt-4 mt-lg-0 ml-md-4">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a href="@Url.Action("LogOff","Account")" class="btn hami-btn live--chat--btn"><i class="fa fa-user" aria-hidden="true"></i> @User.Identity.Name</a>
+                                    }
+                                </div>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header Area End -->
+    <!-- Breadcrumb Area Start -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-content">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html"><i class="icon_house_alt"></i> @this.ViewContext.RouteData.Values["controller"].ToString()</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div style="margin-top:3%;">
+        @RenderBody();
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

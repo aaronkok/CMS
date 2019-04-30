@@ -1,0 +1,49 @@
+﻿@using CMS.Models
+@model IEnumerable<ShippingInfoViewModel>
+
+@{
+    ViewBag.Title = "My Shippings History";
+}
+
+<link href="~/Content/bootstrap4-datatable.min.css" rel="stylesheet" />
+<div class="container">
+    @if (Model != null)
+    {
+        <table id="tblShippingList" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Tracking Number</th>
+                    <th>Ordered Date</th>
+                    <th>Status</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ShippingInfoViewModel info in Model)
+                {
+                    <tr>
+                        <td>@info.TrackingId</td>
+                        <td>@info.OrderDateTime.Date.ToShortDateString()</td>
+                        <td>@info.Status</td>
+                        <td><a role="button" href="@Url.Action("StatusTracking", "Shipping",new { shippingTrackingNo = @info.TrackingId })"><span class="fa fa-eye"></span></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="text-md-center">
+            <h4>No shippings history available</h4>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script src="~/Scripts/jquery-datatable-1.10.19.min.js"></script>
+    <script src="~/Scripts/bootstrap4-datatable.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tblShippingList').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,70 @@
+﻿@using CMS.Models
+@using CMS.Database.Constants
+@model ShippingStatusViewModel
+@{
+    ViewBag.Title = "Shipment Status Tracking";
+}
+
+<div class="container">
+    <div class="status-track">
+        <div class="@((int)Model.ShippingStatus >= 1 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 1 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>Preparing</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 2 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus>= 2 ? "fa fa-check-circle-o" : "fa fa-circle-o")"> </i>
+            <label>To Source</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 3 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 3 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>Arrived Source</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 4 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 4 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>To Port</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 5 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 5 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>In Port</label>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="status-track">
+        <div class="@((int)Model.ShippingStatus >= 6 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 6 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>Shipping</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 7 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 7 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>Custom</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 8 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 8 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>Delivering</label>
+        </div>
+        <div class="@((int)Model.ShippingStatus >= 9 ? "complete" : "future")">
+            <i class="@((int)Model.ShippingStatus >= 9 ? "fa fa-check-circle-o" : "fa fa-circle-o")"></i>
+            <label>Completed</label>
+        </div>
+    </div>
+    <hr />
+
+    @if (User.IsInRole("Admin"))
+    {
+        using (Html.BeginForm("StatusTracking", "Shipping", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.ShippingOrderId)
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Status:</label>
+                    @Html.DropDownListFor(m => m.ShippingStatus, EnumHelper.GetSelectList(typeof(ShippingStatus)), "Please select", new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    <br />
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        }
+    }
+</div>

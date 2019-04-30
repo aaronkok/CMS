@@ -1,0 +1,376 @@
+﻿@using CMS.Models;
+@model ShippingInfoViewModel
+@{
+    ViewBag.Title = "New Shipping Order";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    select {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        background: transparent;
+        border: 1px solid #A4A9C5;
+        border-radius: 3px;
+        outline: none;
+        padding: 10px;
+        transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        width: auto;
+    }
+
+    input {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        background: transparent;
+        border: 1px solid #A4A9C5;
+        border-radius: 3px;
+        outline: none;
+        padding: 10px;
+        transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #18C2C0;
+    }
+
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset;
+            -webkit-text-fill-color: #18C2C0;
+        }
+
+        input:focus {
+            border-color: #18C2C0;
+        }
+
+        input::-webkit-input-placeholder {
+            font-weight: 500;
+            color: #646E8A;
+        }
+
+        input:-ms-input-placeholder {
+            font-weight: 500;
+            color: #646E8A;
+        }
+
+        input::-ms-input-placeholder {
+            font-weight: 500;
+            color: #646E8A;
+        }
+
+        input::placeholder {
+            font-weight: 500;
+            color: #646E8A;
+        }
+
+    section:nth-child(1) {
+        margin-top: 0px;
+    }
+</style>
+
+<div class="container form-container">
+    <div class="form__name">Shipping and Billing Form</div>
+    <div class="form__container">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form--shipping", id= "frmShipping" }))
+        {
+            @Html.AntiForgeryToken()
+            <section class="form__billing section-shipping">
+                <div class="sections">
+                    <div class="box billing">1</div><span>Billing Address</span>
+                </div>
+                <div class="shipping--form">
+                    <div class="row one col-md-12">
+                        <div class="address col-md-4">
+                            @Html.LabelFor(m => m.ShippingAddressLine1)
+                            @Html.TextBoxFor(m => m.ShippingAddressLine1, new { id = "txtShippingAddressLine1", type = "text" })
+                            @Html.ValidationMessageFor(m => m.ShippingAddressLine1, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="address-two col-md-4">
+                            @Html.LabelFor(m => m.ShippingAddressLine2)
+                            @Html.TextBoxFor(m => m.ShippingAddressLine2, new { id = "txtShippingAddressLine2", type = "text" })
+                            @Html.ValidationMessageFor(m => m.ShippingAddressLine2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row two col-md-12">
+                        <div class="city col-md-4">
+                            @Html.LabelFor(m => m.ShippingCity)
+                            @Html.TextBoxFor(m => m.ShippingCity, new { id = "txtShippingCity", type = "text" })
+                            @Html.ValidationMessageFor(m => m.ShippingCity, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="state col-md-4">
+                            @Html.LabelFor(m => m.ShippingState)
+                            @Html.TextBoxFor(m => m.ShippingState, new { id = "txtShippingState", type = "text" })
+                            @Html.ValidationMessageFor(m => m.ShippingState, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row three col-md-12">
+                        <div class="zip col-md-4">
+                            @Html.LabelFor(m => m.ShippingPostalCode)
+                            @Html.TextBoxFor(m => m.ShippingPostalCode, new { id = "txtShippingPostalCode", type = "text" })
+                            @Html.ValidationMessageFor(m => m.ShippingPostalCode, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="country col-md-4">
+                            @Html.LabelFor(m => m.ShippingCountry)
+                            @Html.TextBoxFor(m => m.ShippingCountry, new { id = "txtShippingCountry", type = "text" })
+                            @Html.ValidationMessageFor(m => m.ShippingCountry, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="form__shipping section-shipping">
+                <div class="sections">
+                    <div class="box">2</div><span>Shipping Address</span>
+                </div>
+                <div class="shipping--form">
+                    <div class="row one col-md-12">
+                        <div class="address col-md-4">
+                            @Html.LabelFor(m => m.BillingAddressLine1)
+                            @Html.TextBoxFor(m => m.BillingAddressLine1, new { id = "txtBillingAddressLine1", type = "text" })
+                            @Html.ValidationMessageFor(m => m.BillingAddressLine1, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="address-two col-md-4">
+                            @Html.LabelFor(m => m.BillingAddressLine2)
+                            @Html.TextBoxFor(m => m.BillingAddressLine2, new { id = "txtBillingAddressLine2", type = "text" })
+                            @Html.ValidationMessageFor(m => m.BillingAddressLine2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row two col-md-12">
+                        <div class="city col-md-4">
+                            @Html.LabelFor(m => m.BillingCity)
+                            @Html.TextBoxFor(m => m.BillingCity, new { id = "txtBillingCity", type = "text" })
+                            @Html.ValidationMessageFor(m => m.BillingCity, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="state col-md-4">
+                            @Html.LabelFor(m => m.BillingState)
+                            @Html.TextBoxFor(m => m.BillingState, new { id = "txtBillingState", type = "text" })
+                            @Html.ValidationMessageFor(m => m.BillingState, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row three col-md-12">
+                        <div class="zip col-md-4">
+                            @Html.LabelFor(m => m.BillingPostalCode)
+                            @Html.TextBoxFor(m => m.BillingPostalCode, new { id = "txtBillingPostalCode", type = "text" })
+                            @Html.ValidationMessageFor(m => m.BillingPostalCode, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="country col-md-4">
+                            @Html.LabelFor(m => m.BillingCountry)
+                            @Html.TextBoxFor(m => m.BillingCountry, new { id = "txtBillingCountry", type = "text" })
+                            @Html.ValidationMessageFor(m => m.BillingCountry, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <div class="form__question">
+                <div><input type="checkbox" id="cbxQuestion" /> Is your shipping address the same as your billing address ?</div>
+            </div>
+            <section class="form__shipping section-shipping">
+                <div class="sections">
+                    <div class="box">3</div><span>Shipping Items</span>
+                </div>
+                <div class="shipping--form">
+                    <div class="container">
+                        <table id="tblOrderItem" class="table order-list">
+                            <thead>
+                                <tr>
+                                    <td>Category</td>
+                                    <td>Name</td>
+                                    <td>Amount</td>
+                                    <td>Est. Weightage</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Items == null)
+                                {
+                                    <tr>
+                                        <td class="td-category">
+                                            <select name="category">
+                                                <option value="Please select">Please select</option>
+                                                <option value="Food">Food</option>
+                                                <option value="Transport">Transport</option>
+                                                <option value="Wearable">Wearable</option>
+                                            </select>
+                                        </td>
+                                        <td class="td-name">
+                                            <input type="text" name="name" />
+                                        </td>
+                                        <td class="td-amount">
+                                            <input type="number" name="amount" />
+                                        </td>
+                                        <td class="td-weight">
+                                            <input type="number" name="weight" />
+                                        </td>
+                                        <td>
+                                            <a class="deleteRow"></a>
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < Model.Items.Count; i++)
+                                    {
+                                        <tr>
+                                            <td class="td-category">
+                                                <select name="category">
+                                                    <option value="Please select">Please select</option>
+                                                    <option value="Food">Food</option>
+                                                    <option value="Transport">Transport</option>
+                                                    <option value="Wearable">Wearable</option>
+                                                </select>
+                                            </td>
+                                            <td class="td-name">
+                                                <input type="text" name="@("name" + i)" value="@Model.Items[i].Name" />
+                                            </td>
+                                            <td class="td-amount">
+                                                <input type="number" name="@("amount" + i)" value="@Model.Items[i].Amount" />
+                                            </td>
+                                            <td class="td-weight">
+                                                <input type="number" name="@("weight" + i)" value="@Model.Items[i].EstimatedWeightage" />
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" style="text-align: left;">
+                                        <input type="button" class="btn btn-lg btn-block btn-secondary" id="addrow" value="Add Row" />
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <div class="form__confirmation">
+                <button class="button-confirm btn-primary" type="button" id="btnConfirm">Confirm Information</button>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var counter = 0;
+
+            $("#addrow").on("click", function () {
+
+                counter = $('#tblOrderItem tr').length - 2;
+
+                var newRow = $("<tr>");
+                var cols = "";
+
+                cols += '<td class="td-category"><select name="category' + counter + '"><option value="Please select">Please select</option><option value="Food">Food</option><option value="Transport">Transport</option><option value="Wearable">Wearable</option></select></td>';
+                cols += '<td class="td-name"><input type="text" name="name' + counter + '" /></td>';
+                cols += '<td class="td-amount"><input type="number" name="amount' + counter + '" /></td>';
+                cols += '<td class="td-weight"><input type="number" name="weight" data-val="true" /></td>';
+                cols += '<td><a role="button" class="ibtnDel btn btn-md btn-danger"><span class="fa fa-trash" style="color:white;"></span></a></td>';
+                newRow.append(cols);
+                if (counter == 4) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");
+                $("table.order-list").append(newRow);
+                counter++;
+            });
+
+            $('#cbxQuestion').on('change', function () {
+                if (this.checked) {
+                    $('#txtBillingAddressLine1').val($('#txtShippingAddressLine1').val())
+                    $('#txtBillingAddressLine2').val($('#txtShippingAddressLine2').val());
+                    $('#txtBillingCity').val($('#txtShippingCity').val());
+                    $('#txtBillingState').val($('#txtShippingState').val());
+                    $('#txtBillingPostalCode').val($('#txtShippingPostalCode').val());
+                    $('#txtBillingCountry').val($('#txtShippingCountry').val());
+                }
+                else {
+                    $('#txtBillingAddressLine1').val('');
+                    $('#txtBillingAddressLine2').val('');
+                    $('#txtBillingCity').val('');
+                    $('#txtBillingState').val('');
+                    $('#txtBillingPostalCode').val('');
+                    $('#txtBillingCountry').val('');
+                }
+            });
+
+            $('#btnConfirm').on('click', function () {
+
+                if ($("#frmShipping").valid() & itemValidation()) {
+
+                    var model = new Object;
+                    model.Items = [];
+                    model.__RequestVerificationToken = $('input[name="__RequestVerificationToken"]', $('#frmShipping')).val();
+                    model.ShippingAddressLine1 = $('#txtShippingAddressLine1').val();
+                    model.ShippingAddressLine2 = $('#txtShippingAddressLine2').val();
+                    model.ShippingCity = $('#txtShippingCity').val();
+                    model.ShippingState = $('#txtShippingState').val();
+                    model.ShippingPostalCode = $('#txtShippingPostalCode').val();
+                    model.ShippingCountry = $('#txtShippingCountry').val();
+                    model.BillingAddressLine1 = $('#txtBillingAddressLine1').val();
+                    model.BillingAddressLine2 = $('#txtBillingAddressLine2').val();
+                    model.BillingCity = $('#txtBillingCity').val();
+                    model.BillingState = $('#txtBillingState').val();
+                    model.BillingPostalCode = $('#txtBillingPostalCode').val();
+                    model.BillingCountry = $('#txtBillingCountry').val();
+
+                    $('#tblOrderItem  > tbody').find('tr').each(function () {
+                        var item = new Object;
+                        item.Category = $(this).find('td.td-category > select').val();
+                        item.Name = $(this).find('td.td-name > input').val();
+                        item.Amount = $(this).find('td.td-amount > input').val();
+                        item.EstimatedWeightage = $(this).find('td.td-weight > input').val();
+
+                        model.Items.push(item);
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("Create","Shipping")',
+                        type: 'POST',
+                        data: model,
+                        success: function (data) {
+                            if (data.Succeeded) {
+                                alert(data.TrackingId);
+                            }
+                            else {
+                                alert(data.Message);
+                            }
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+                }
+            });
+
+            function itemValidation() {
+
+                var isValid = true;
+
+                $('#tblOrderItem  > tbody').find('tr').each(function () {
+                    if ($(this).find('td.td-category > select').val() == 'Please select') {
+                        $(this).find('td.td-category > select').css('border-color', 'red');
+                        isValid = false;
+                    }
+                    else {
+                        $(this).find('td.td-category > select').css('border-color', '');
+                    }
+
+                    $(this).find('td').each(function () {
+                        if ($(this).find('input').val() == '') {
+                            $(this).find('input').css('border-color', 'red');
+                            isValid = false;
+                        }
+                        else {
+                            $(this).find('input').css('border-color', '');
+                        }
+                    });
+                });
+
+                return isValid;
+            }
+        });
+    </script>
+}

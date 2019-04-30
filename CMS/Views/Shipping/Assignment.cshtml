@@ -1,0 +1,81 @@
+﻿@using CMS.Models;
+@using CMS.Database.Entities;
+@model ShippingAssignmentViewModel
+
+@{
+    ViewBag.Title = "Assignment";
+}
+
+<div class="container">
+    @using (Html.BeginForm("Assignment", "Shipping", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.ShippingOrderId)
+
+        if (Model.Message != null)
+        {
+            <div class="alert alert-success">
+                <strong>Message</strong> @Model.Message
+            </div>
+        }
+
+        <div class="row col-sm-12">
+            <div class="col-sm-6">
+                <label>Shipping Order</label>
+                @Html.TextBoxFor(m => m.OrderTrackingId, null, new { @class = "form-control", type = "text", @readonly = true })
+            </div>
+            <div class="col-sm-6">
+                <label>Customer</label>
+                @Html.TextBoxFor(m => m.CustomerName, null, new { @class = "form-control", type = "text", @readonly = true })
+            </div>
+        </div>
+        <br />
+        <div class="row col-sm-12">
+            <div class="col-sm-6">
+                <label>Container</label>
+                @Html.DropDownListFor(m => m.ContainerId, Model.Containers.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList(), "Please select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m=>m.ContainerId, "", new { @class="text-danger"})
+            </div>
+            <div class="col-sm-6">
+                <label>Actual Weight</label>
+                @Html.TextBoxFor(m => m.ActualWeight, null, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(m => m.ActualWeight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        if (Model != null)
+        {
+            <hr />
+            <div class="row col-sm-12">
+                <h5>Shipping Items</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Amount</th>
+                            <th>Weight(kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ShippingItem item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Amount</td>
+                                <td>@item.EstimateWeightage</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <div class="row col-sm-12">
+            <div class="col-sm-3">
+                <button class="btn btn-primary" type="submit">Confirm</button>
+            </div>
+        </div>
+    }
+</div>
